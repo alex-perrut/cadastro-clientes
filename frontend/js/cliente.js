@@ -22,11 +22,34 @@ function validarEmail(valor) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
 }
 
-function validarTelefone(valor) {
-    const somenteNumeros = valor.replace(/\D/g, "");
-    return somenteNumeros.length >= 8 && somenteNumeros.length <= 15;
-}
+// function validarTelefone(valor) {
+//     const somenteNumeros = valor.replace(/\D/g, "");
+//     return somenteNumeros.length >= 8 && somenteNumeros.length <= 15;
+// }
 
+function validarTelefone(valor) {
+    let somenteNumeros = valor.replace(/\D/g, "");
+
+    // Limita a 11 números
+    somenteNumeros = somenteNumeros.substring(0, 11);
+
+    // Aplica a máscara
+    if (somenteNumeros.length <= 2) {
+        return somenteNumeros.replace(/^(\d{0,2})/, "($1");
+    }
+
+    if (somenteNumeros.length <= 7) {
+        return somenteNumeros.replace(
+            /^(\d{2})(\d{0,5})/,
+            "($1) $2"
+        );
+    }
+
+    return somenteNumeros.replace(
+        /^(\d{2})(\d{5})(\d{0,4})/,
+        "($1) $2-$3"
+    );
+}
 function campoValido(campo) {
     const valor = campo.value.trim();
 
@@ -53,7 +76,7 @@ function obterMensagemErro(campo) {
     const valor = campo.value.trim();
 
     if (!valor) {
-        return "Preencha este campo.";
+        return "Preencha conforme o exemplo acima.";
     }
 
     if (campo === nome && valor.length < 3) {
@@ -114,6 +137,10 @@ function limparMensagem() {
     mensagem.textContent = "";
     mensagem.className = "mensagem";
 }
+
+telefone.addEventListener("input", function () {
+    telefone.value = validarTelefone(telefone.value);
+});
 
 campos.forEach((campo, indice) => {
     campo.addEventListener("input", () => {
