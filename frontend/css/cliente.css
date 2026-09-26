@@ -1,0 +1,268 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #f3f6f8;
+    color: #17283b;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.browser-window {
+    width: 100%;
+    max-width: 1000px;
+    background: #ffffff;
+    border: 1px solid #cfd9df;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+}
+
+.browser-bar {
+    min-height: 50px;
+    background: #e8eef3;
+    border-bottom: 1px solid #d2dbe0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.browser-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+}
+
+.browser-dot.red {
+    background: #ff6d7f;
+}
+
+.browser-dot.yellow {
+    background: #f7c948;
+}
+
+.browser-dot.green {
+    background: #31c68a;
+}
+
+.container {
+    padding: 28px 40px 46px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cadastro-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    margin: 0 0 30px;
+    font-size: 34px;
+    line-height: 1.15;
+    color: #0f1e2d;
+}
+
+.form-row {
+    width: 100%;
+    display: flex;
+    gap: 28px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 7px;
+    color: #5f6f7d;
+    font-size: 15px;
+}
+
+input {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 14px;
+    border: 1px solid #c7d2da;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #17283b;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #6aa5cf;
+    box-shadow: 0 0 0 3px rgba(106, 165, 207, 0.12);
+}
+
+input:disabled {
+    background: #edf1f4;
+    cursor: not-allowed;
+    color: #7d8a95;
+}
+
+input.invalido {
+    border-color: #dc3545;
+}
+
+.erro {
+    min-height: 17px;
+    margin-top: 5px;
+    color: #c73443;
+    font-size: 12px;
+}
+
+.form-actions {
+    margin-top: 4px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+button {
+    min-width: 114px;
+    min-height: 52px;
+    border: 0;
+    border-radius: 8px;
+    padding: 0 20px;
+    background: #22bf63;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+    background: #1eae5a;
+}
+
+button:disabled {
+    background: #aab7bf;
+    cursor: not-allowed;
+}
+
+.mensagem {
+    min-height: 22px;
+    margin: 12px 0 0;
+    text-align: right;
+    font-size: 14px;
+}
+
+.mensagem.sucesso {
+    color: #1c8b4d;
+}
+
+.mensagem.erro-mensagem {
+    color: #c73443;
+}
+
+.lista-section {
+    width: 100%;
+    margin-top: 28px;
+}
+
+.tabela-container {
+    width: 100%;
+    border: 1px solid #cfd9df;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th,
+td {
+    padding: 15px 18px;
+    text-align: left;
+    border-bottom: 1px solid #e5ebef;
+}
+
+th {
+    color: #607182;
+    font-size: 14px;
+    font-weight: 700;
+    background: #fafcfd;
+}
+
+td {
+    color: #1c2936;
+    font-size: 15px;
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.sem-dados {
+    text-align: center;
+    color: #7a8792;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+@media (max-width: 760px) {
+    body {
+        padding: 0;
+        align-items: flex-start;
+    }
+
+    .browser-window {
+        min-height: 100vh;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+    }
+
+    .container {
+        padding: 25px 20px 35px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-actions {
+        justify-content: stretch;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .mensagem {
+        text-align: left;
+    }
+
+    h1 {
+        font-size: 29px;
+    }
+}

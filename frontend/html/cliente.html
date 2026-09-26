@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+    <link rel="stylesheet" href="../css/cliente.css">
+</head>
+<body>
+    <div class="browser-window">
+        <div class="browser-bar" aria-hidden="true">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot yellow"></span>
+            <span class="browser-dot green"></span>
+        </div>
+
+        <main class="container">
+            <section class="cadastro-section" aria-labelledby="titulo-cadastro">
+                <h1 id="titulo-cadastro">Cadastro de Clientes</h1>
+
+                <form id="clienteForm" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input
+                                type="text"
+                                id="nome"
+                                name="nome"
+                                minlength="3"
+                                maxlength="100"
+                                autocomplete="name"
+                                required
+                            >
+                            <small class="erro" id="erroNome"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                maxlength="150"
+                                autocomplete="email"
+                                disabled
+                                required
+                            >
+                            <small class="erro" id="erroEmail"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="telefone">Telefone</label>
+                            <input
+                                type="tel"
+                                id="telefone"
+                                name="telefone"
+                                maxlength="20"
+                                autocomplete="tel"
+                                disabled
+                                required
+                            >
+                            <small class="erro" id="erroTelefone"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cidade">Cidade</label>
+                            <input
+                                type="text"
+                                id="cidade"
+                                name="cidade"
+                                minlength="2"
+                                maxlength="100"
+                                autocomplete="address-level2"
+                                disabled
+                                required
+                            >
+                            <small class="erro" id="erroCidade"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button id="btnCadastrar" type="submit" disabled>
+                            Cadastrar
+                        </button>
+                    </div>
+
+                    <p id="mensagem" class="mensagem" role="status" aria-live="polite"></p>
+                </form>
+            </section>
+
+            <section class="lista-section" aria-labelledby="titulo-lista">
+                <h2 id="titulo-lista" class="visually-hidden">Clientes cadastrados</h2>
+
+                <div class="tabela-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Telefone</th>
+                                <th>Cidade</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaClientes">
+                            <tr>
+                                <td colspan="4" class="sem-dados">Carregando clientes...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/cliente.js"></script>
+</body>
+</html>

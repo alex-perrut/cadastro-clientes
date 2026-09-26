@@ -1,0 +1,35 @@
+{
+  "missing_files": [],
+  "node_syntax_checks": [
+    [
+      "frontend/js/cliente.js",
+      0,
+      ""
+    ],
+    [
+      "backend/controllers/clienteController.js",
+      0,
+      ""
+    ],
+    [
+      "backend/models/Cliente.js",
+      0,
+      ""
+    ],
+    [
+      "backend/db/database.js",
+      0,
+      ""
+    ],
+    [
+      "backend/routes/clienteRoutes.js",
+      0,
+      ""
+    ],
+    [
+      "backend/server.js",
+      0,
+      ""
+    ]
+  ]
+}
