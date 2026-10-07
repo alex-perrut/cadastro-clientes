@@ -1,4 +1,5 @@
 const form = document.getElementById("clienteForm");
+const btnLogout = document.getElementById("btnLogout");
 
 const nome = document.getElementById("nome");
 const email = document.getElementById("email");
@@ -18,22 +19,60 @@ const erros = {
     cidade: document.getElementById("erroCidade")
 };
 
+async function verificarLogin() {
+
+    try {
+
+        const resposta = await fetch("/api/clientes", {
+
+            method: "GET",
+
+            credentials: "include"
+
+        });
+
+
+        if (resposta.status === 401) {
+
+            window.location.href = "./login.html";
+
+            return;
+        }
+
+
+        if (!resposta.ok) {
+
+            console.error(
+                "Erro ao verificar autenticação."
+            );
+
+            return;
+        }
+
+        console.log("Usuário autenticado.");
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao verificar login:",
+            erro
+        );
+        window.location.href = "./login.html";
+    }
+}
+
+verificarLogin();
+
 function validarEmail(valor) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
 }
 
-// function validarTelefone(valor) {
-//     const somenteNumeros = valor.replace(/\D/g, "");
-//     return somenteNumeros.length >= 8 && somenteNumeros.length <= 15;
-// }
 
 function validarTelefone(valor) {
     let somenteNumeros = valor.replace(/\D/g, "");
 
-    // Limita a 11 números
     somenteNumeros = somenteNumeros.substring(0, 11);
 
-    // Aplica a máscara
     if (somenteNumeros.length <= 2) {
         return somenteNumeros.replace(/^(\d{0,2})/, "($1");
     }
@@ -273,8 +312,6 @@ form.addEventListener("submit", async (evento) => {
             limparErro(campo);
         });
 
-        // O botão permanece desabilitado até que o próximo cadastro
-        // passe novamente por todas as etapas de validação.
         btnCadastrar.disabled = true;
 
         await carregarClientes();
@@ -287,6 +324,32 @@ form.addEventListener("submit", async (evento) => {
 
         atualizarEtapas();
     }
+});
+
+btnLogout.addEventListener("click", async function () {
+
+    try {
+
+        const resposta = await fetch("/api/clientes/logout", {
+
+            method: "POST"
+
+        });
+
+        const dados = await resposta.json();
+
+        if (resposta.ok) {
+
+            window.location.href = "./login.html";
+
+        }
+
+    } catch (erro) {
+
+        console.error("Erro ao fazer logout:", erro);
+
+    }
+
 });
 
 nome.focus();

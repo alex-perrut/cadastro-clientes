@@ -1,4 +1,5 @@
 const Cliente = require("../models/Cliente");
+const jwt = require("jsonwebtoken");
 
 class ClienteController {
     constructor(pool) {
@@ -109,6 +110,125 @@ class ClienteController {
                     "Erro interno ao cadastrar o cliente."
             });
         }
+    }
+
+    // async login(req, res) {
+
+    //     try {
+
+    //         const { email, password } = req.body;
+
+    //         if (!email || !password) {
+    //             return res.status(400).json({
+    //                 mensagem: "Email e senha são obrigatórios"
+    //             });
+    //         }
+
+    //         const usuario = await Cliente.validarDados(
+    //             this.pool,
+    //             {
+    //                 email,
+    //                 password
+    //             }
+    //         );
+
+    //         if (!usuario) {
+    //             return res.status(401).json({
+    //                 mensagem: "E-mail ou senha incorretos."
+    //             });
+    //         }
+
+    //         return res.status(200).json({
+    //             mensagem: "Login realizado com sucesso!",
+    //             usuario: {
+    //                 email: usuario.email
+    //             }
+    //         });
+
+    //     } catch (erro) {
+
+    //         console.error("Erro no login:", erro);
+
+    //         return res.status(500).json({
+    //             mensagem: "Erro interno no servidor."
+    //         });
+    //     }
+    // }
+
+    async login(req, res) {
+
+        try {
+
+            const { email, password } = req.body;
+
+            if (!email || !password) {
+
+                return res.status(400).json({
+                    mensagem: "Email e senha são obrigatórios."
+                });
+            }
+
+            const usuario = await Cliente.validarDados(
+                this.pool,
+                {
+                    email,
+                    password
+                }
+            );
+
+            if (!usuario) {
+
+                return res.status(401).json({
+                    mensagem: "E-mail ou senha incorretos."
+                });
+            }
+
+            // =====================================
+            // CRIAR TOKEN
+            // =====================================
+
+            const token = jwt.sign(
+                {
+                    email: usuario.email
+                },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: "60m"
+                }
+            );
+
+            // =====================================
+            // SALVAR TOKEN NO COOKIE
+            // =====================================
+
+            res.cookie("token", token, {
+                httpOnly: true,
+                secure: false,
+                sameSite: "strict",
+                maxAge: 60 * 60 * 1000
+            });
+
+            return res.status(200).json({
+                mensagem: "Login realizado com sucesso!"
+            });
+
+        } catch (erro) {
+
+            console.error("Erro no login:", erro);
+
+            return res.status(500).json({
+                mensagem: "Erro interno no servidor."
+            });
+        }
+    }
+
+    async logout(req, res) {
+
+        res.clearCookie("token");
+
+        return res.status(200).json({
+            mensagem: "Logout realizado com sucesso."
+        });
     }
 }
 

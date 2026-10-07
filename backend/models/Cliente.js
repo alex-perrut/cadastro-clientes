@@ -114,6 +114,33 @@ class Cliente {
             criado_em: this.criado_em
         };
     }
+
+    static async validarDados(pool, dados) {
+
+        const sql = `
+        SELECT
+            email,
+            password
+        FROM login
+        WHERE email = ?
+        AND password = ?
+        LIMIT 1
+    `;
+
+        const [linhas] = await pool.execute(
+            sql,
+            [
+                dados.email,
+                dados.password
+            ]
+        );
+
+        if (linhas.length === 0) {
+            return null;
+        }
+
+        return linhas[0];
+    }
 }
 
 module.exports = Cliente;
